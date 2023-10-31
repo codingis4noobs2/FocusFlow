@@ -1,0 +1,111 @@
+{
+  "name": "focusflow",
+  "displayName": "FocusFlow",
+  "description": "Supercharge your productivity in VSCode! Seamlessly integrate the Pomodoro technique with a built-in Kanban board. Manage tasks, set custom timers, and dive into focused coding sessions, all within your favorite editor.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.83.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "focusflow.startPomodoro",
+        "title": "Start Pomodoro"
+      },
+      {
+        "command": "focusflow.pausePomodoro",
+        "title": "Pause Pomodoro"
+      },
+      {
+        "command": "focusflow.stopPomodoro",
+        "title": "Stop Pomodoro"
+      },
+      {
+        "command": "focusflow.addTask",
+        "title": "Add Task"
+      },
+      {
+        "command": "focusflow.editTask",
+        "title": "Edit Task"
+      },
+      {
+        "command": "focusflow.removeTask",
+        "title": "Remove Task"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "focusflow.kanban",
+          "name": "FocusFlow Kanban"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "focusflow",
+          "title": "FocusFlow",
+          "icon": "icon.png"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "focusflow.startPomodoro",
+          "when": "view == focusflow.kanban",
+          "group": "navigation"
+        },
+        {
+          "command": "focusflow.pausePomodoro",
+          "when": "view == focusflow.kanban",
+          "group": "navigation"
+        },
+        {
+          "command": "focusflow.stopPomodoro",
+          "when": "view == focusflow.kanban",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "focusflow.addTask",
+          "when": "view == focusflow.kanban"
+        },
+        {
+          "command": "focusflow.editTask",
+          "when": "view == focusflow.kanban && viewItem == kanbanItem"
+        },
+        {
+          "command": "focusflow.removeTask",
+          "when": "view == focusflow.kanban && viewItem == kanbanItem"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.83.0",
+    "@types/mocha": "^10.0.3",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
+    "eslint": "^8.52.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.2.0",
+    "typescript": "^5.2.2",
+    "@vscode/test-electron": "^2.3.6"
+  }
+}
